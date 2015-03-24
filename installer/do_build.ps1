@@ -42,8 +42,8 @@ Invoke-CommandChecked "32 bit candle" ($env:WIX + "bin\candle.exe") installer.wx
 Invoke-CommandChecked "32 bit light" ($env:WIX + "bin\light.exe") -sw1076 -ext WixUIExtension XenClientTools.wixobj -out XenClientTools.msi -cc cache -reusecab
 Invoke-CommandChecked "64 bit candle" ($env:WIX + "bin\candle.exe") installer.wxs -dPlatform="x64" ("-dCompany=" + $Company) ("-dPRODUCT_VERSION=" + $VerString) ("-dTAG=" + $BuildTag) -out XenClientTools64.wixobj
 Invoke-CommandChecked "64 bit light" ($env:WIX + "bin\light.exe") -sw1076 -ext WixUIExtension XenClientTools64.wixobj -out XenClientTools64.msi -cc cache -reusecab
-Invoke-CommandChecked "sign 32 bit MSI" ($signtool+"\signtool.exe") sign /a /fc SHA256 /s my /n ('"'+$CertName+'"') /t http://timestamp.verisign.com/scripts/timestamp.dll /d "$Company XenClient Tools Installer" XenClientTools.msi
-Invoke-CommandChecked "sign 64 bit MSI" ($signtool+"\signtool.exe") sign /a /fc SHA256 /s my /n ('"'+$CertName+'"') /t http://timestamp.verisign.com/scripts/timestamp.dll /d "$Company XenClient Tools Installer" XenClientTools64.msi
+Invoke-CommandChecked "sign 32 bit MSI" ($signtool+"\signtool.exe") sign /a /fd SHA256 /s my /n ('"'+$CertName+'"') /t http://timestamp.verisign.com/scripts/timestamp.dll /d "$Company XenClient Tools Installer" XenClientTools.msi
+Invoke-CommandChecked "sign 64 bit MSI" ($signtool+"\signtool.exe") sign /a /fd SHA256 /s my /n ('"'+$CertName+'"') /t http://timestamp.verisign.com/scripts/timestamp.dll /d "$Company XenClient Tools Installer" XenClientTools64.msi
 
 
 # Copy Signer's Certificate to ISO
